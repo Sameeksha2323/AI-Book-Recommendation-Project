@@ -16,8 +16,8 @@
       "dest": "app.py"
     },
     {
-      "src": "/recommend_books",  // <-- NEW ROUTE FOR /recommend_books
-      "dest": "app.py"         // <--  Direct to app.py to handle it
+      "src": "/recommend_books",  
+      "dest": "app.py"        
     }
   ]
 }
