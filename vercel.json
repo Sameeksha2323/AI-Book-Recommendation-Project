@@ -18,6 +18,10 @@
     {
       "src": "/recommend_books",  
       "dest": "app.py"        
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
     }
   ]
 }
