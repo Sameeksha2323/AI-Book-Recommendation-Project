@@ -3,6 +3,12 @@ import requests
 
 app = Flask(__name__)
 
+custom_book_images={
+    " Apple Magic (The Collector's series)" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2DQpwwCxLWQh8SELbiySkiTfhfSPuI-O7fA&s",
+    " Beyond IBM: Leadership Marketing and Finance for the 1990s": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2DQpwwCxLWQh8SELbiySkiTfhfSPuI-O7fA&s",
+    " Deceived" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2DQpwwCxLWQh8SELbiySkiTfhfSPuI-O7fA&s"
+
+}
 # --- Cerebrium API Configuration ---
 CEREBRIUM_API_URL = "https://api.cortex.cerebrium.ai/v4/p-5d57b63b/book-recommender-project/run"
 #https://api.cortex.cerebrium.ai/v4/p-5d57b63b/book-recommender-project/<your-function>
@@ -31,10 +37,11 @@ def index():
             authors = [book['author'] for book in popular_books]
             images = [book['image'] for book in popular_books]
 
-            return render_template('index.html',
+            return render_template('fun.html',
                                    book_name=book_names,
                                    author=authors,
-                                   image=images
+                                   image=images,
+                                   custom_book_images=custom_book_images
                                    )
 
         else:

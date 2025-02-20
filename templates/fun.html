@@ -38,7 +38,13 @@
             {% for i in range(book_name|length) %}
                 <div class="col-md-3 book-item"> <!-- Bootstrap col for basic responsiveness, you can remove if not needed -->
                     <div class="book-card golden-border rounded-card">
-                        <img class="card-img-top book-image" src="{{ image[i] }}" >
+                        {% set current_book_name = book_name[i] %} <!-- Get current book name -->
+                        {% if current_book_name in custom_book_images %}
+                            <img class="card-img-top book-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2DQpwwCxLWQh8SELbiySkiTfhfSPuI-O7fA&s"> <!-- Display custom image -->
+                        {% else %}
+                            <img class="card-img-top book-image" src="{{ image[i] }}"> <!-- Display default image -->
+                        {% endif %}
+                        
                         <div class="card-body book-info">
                             <h5 class="book-name">{{ book_name[i] }}</h5>
                             <p class="book-author">Author: {{ author[i] }}</p>

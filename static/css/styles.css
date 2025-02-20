@@ -97,6 +97,7 @@ body {
     font-size: 1em; /* Author name font size */
     color: #555; /* Author name color - slightly gray */
     margin-bottom: 0; /* No margin below author */
+    font-weight: bold;
 }
 
 /* Responsive Adjustments (Optional - for smaller screens) */
