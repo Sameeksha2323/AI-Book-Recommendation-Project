@@ -3,12 +3,6 @@ import requests
 
 app = Flask(__name__)
 
-custom_book_images={
-    " Apple Magic (The Collector's series)" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2DQpwwCxLWQh8SELbiySkiTfhfSPuI-O7fA&s",
-    " Beyond IBM: Leadership Marketing and Finance for the 1990s": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2DQpwwCxLWQh8SELbiySkiTfhfSPuI-O7fA&s",
-    " Deceived" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2DQpwwCxLWQh8SELbiySkiTfhfSPuI-O7fA&s"
-
-}
 # --- Cerebrium API Configuration ---
 CEREBRIUM_API_URL = "https://api.cortex.cerebrium.ai/v4/p-5d57b63b/book-recommender-project/run"
 #https://api.cortex.cerebrium.ai/v4/p-5d57b63b/book-recommender-project/<your-function>
@@ -40,17 +34,16 @@ def index():
             return render_template('fun.html',
                                    book_name=book_names,
                                    author=authors,
-                                   image=images,
-                                   custom_book_images=custom_book_images
+                                   image=images
                                    )
 
         else:
-            return render_template('index.html', error_message="Unexpected API response format") # More specific error message
+            return render_template('fun.html', error_message="Unexpected API response format") # More specific error message
 
 
     except requests.exceptions.RequestException as e:
         print(f"Error fetching popular books from API: {e}")
-        return render_template('index.html', error_message="Error connecting to book data API")
+        return render_template('fun.html', error_message="Error connecting to book data API")
 
 
 @app.route('/recommend')
@@ -60,23 +53,29 @@ def recommend_ui():
 @app.route('/recommend_books', methods=['POST'])
 def recommend():
     user_input_book = request.form.get('user_input')
-
     try:
         response = requests.post(CEREBRIUM_API_URL, json={"type": "recommendation", "book_name": user_input_book}, headers=HEADERS)
         response.raise_for_status()
         api_data = response.json()
 
-        if "result" in api_data and "error" in api_data["result"]: # Check for "error" inside "result"
-            return render_template('recommend.html', not_found_message=api_data["result"]["error"], book_name=user_input_book) # Access error through "result"
+        if "result" in api_data and "error" in api_data["result"]: 
+            # Check for "error" inside "result"
+            response1 = requests.post(CEREBRIUM_API_URL, json={"type": "recommendation", "book_name": "1984"}, headers=HEADERS)
+            response1.raise_for_status()
+            api_data1 = response1.json()
+
+            recommendations = api_data1["result"]["recommendations"] # Access recommendations through "result"
+            return render_template('recommend.html', data=recommendations, book_name="1984", not_found_message=api_data["result"]["error"]) # Pass recommendations as 'data'
+         # Pass empty list for data
         elif "result" in api_data and "recommendations" in api_data["result"]: # Check for "result" and "recommendations" inside "result"
             recommendations = api_data["result"]["recommendations"] # Access recommendations through "result"
-            return render_template('recommend.html', recommendations=recommendations, book_name=user_input_book, not_found_message="")
+            return render_template('recommend.html', data=recommendations, book_name=user_input_book, not_found_message="") # Pass recommendations as 'data'
         else:
-            return render_template('recommend.html', not_found_message="Unexpected API response format", book_name=user_input_book) # More specific error message
+            return render_template('recommend.html', not_found_message="Unexpected API response format", book_name=user_input_book, data=[]) # Pass empty list for data
 
     except requests.exceptions.RequestException as e:
         print(f"Error fetching recommendations from API: {e}")
-        return render_template('recommend.html', not_found_message="Error connecting to recommendation API", book_name=user_input_book) # Handle connection error, pass book_name
-
+        return render_template('recommend.html', not_found_message="Error connecting to recommendation API", book_name=user_input_book, data=[]) # Handle connection error, pass book_name and empty data
+    
 if __name__ == '__main__':
     app.run(debug=True)
