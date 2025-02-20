@@ -23,6 +23,5 @@
       "src": "/static/(.*)",
       "dest": "/static/$1"
     }
-  ],
-   "static": "static"
+  ]
 }
