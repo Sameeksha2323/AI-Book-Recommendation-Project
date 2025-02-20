@@ -2,61 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Book Recommender System</title>
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>Book Recommendation - Book Recommender</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Custom CSS - Link to your existing styles.css -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Keep the not-found-message style, you can move this to styles.css if you want */
+        .not-found-message {
+            color: black;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
 </head>
-<style>
-    .text-white{
-        color:white
-    }
-</style>
-<body style="background-color:black">
+<body class="beige-background"> <!-- Apply beige-background class -->
 
-    <nav class="navbar" style="background-color:#00a65a">
-        <a class="navbar-brand">My Book recommender</a>
-        <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/recommend">Recommend</a></li>
-            <li><a>Contact</a></li>
-        </ul>
+    <nav class="navbar blue-navbar"> <!-- Apply blue-navbar class -->
+        <div class="navbar-header">
+            <a class="navbar-brand logo-placeholder"> <!-- Apply navbar-brand logo-placeholder classes -->
+                <!-- Logo Placeholder - You will replace this with an <img> tag -->
+                <img src="/static/images/logo.png" alt="Logo"> <!-- Use logo image from static folder -->
+            </a>
+        </div>
+        <div class="navbar-collapse collapse"> <!-- Apply navbar-collapse collapse classes -->
+            <ul class="nav navbar-nav navbar-right black-links"> <!-- Apply nav navbar-nav navbar-right black-links classes -->
+                <li><a href="/">Home</a></li>
+                <li><a href="/recommend">Recommendation</a></li>
+            </ul>
+        </div>
     </nav>
-
-    {% if not_found_message %}
-        <p class="not-found-message">{{ not_found_message }}</p>
-    {% endif %}
 
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="text-white" style="font-size:50px">Recommend Books</h1>
-                <form action="/recommend_books" method="post">
-                    <input name="user_input" type="text" class="form-control"><br>
-                    <input type="submit" class="btn btn-lg btn-warning">
+                <h1 class="top-books-heading" style="font-size:50px; text-align: center; margin-bottom: 20px;">Recommend Books</h1> <!-- Use top-books-heading class and center align, adjust margin -->
+                <form action="/recommend_books" method="post" style="text-align: center;"> <!-- Center align form -->
+                    <input name="user_input" type="text" class="form-control" placeholder="Enter Book Name. Make Sure There are No Typos." style="margin: 0 auto; max-width: 400px;"><br> <!-- Center input and limit width -->
+                    <input type="submit" class="btn btn-lg btn-warning abc" value="Search Recommendations">
                 </form>
             </div>
 
-            
+            {% if not_found_message %}
+                <p class="not-found-message">Book Not Available in the Priority Database. So, these are some all-time popular books.</p>
+            {% endif %}
 
+            <div class="row book-grid" style="margin-top: 30px;"> <!-- Apply book-grid class and adjust margin -->
             {% if data %}
-
-             {% for i in data %}
-                <div class="col-md-3" style="margin-top:50px">
-                    <div class="card">
-                        <div class="card-body">
-                            <img class="card-img-top" src="{{i[2]}}">
-                            <p class="text-white">{{i[0]}}</p>
-                            <h4 class="text-white">{{i[1]}}</h4>
+             {% for book in data %}
+                <div class="col-md-3 book-item">
+                    <div class="book-card golden-border rounded-card">
+                        <img class="card-img-top book-image" src="{{book.image}}" alt="{{book.title}}">
+                        <div class="card-body book-info">
+                            <h5 class="book-name">{{book.title}}</h5>
+                            <p class="book-author">Author: {{book.author}}</p>
                         </div>
                     </div>
                 </div>
              {% endfor %}
-
             {% endif %}
-
-
-
-
+            </div>
         </div>
     </div>
 
