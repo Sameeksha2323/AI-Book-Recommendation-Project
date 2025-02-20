@@ -4,6 +4,9 @@ body {
     margin: 0; /* Reset default body margin */
     padding: 0; /* Reset default body padding */
 }
+.abc{
+    margin-bottom: 30px;
+}
 
 .beige-background {
     background-color: #f5f5dc; /* Beige color */
