@@ -8,6 +8,15 @@ body {
     margin-bottom: 30px;
 }
 
+span{
+    font-weight: bold;
+    font-color: red;
+}
+
+.not-found-message{
+    text-align: center;
+}
+
 .beige-background {
     background-color: #f5f5dc; /* Beige color */
 }
