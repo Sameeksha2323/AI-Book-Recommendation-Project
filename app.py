@@ -31,7 +31,7 @@ def index():
             authors = [book['author'] for book in popular_books]
             images = [book['image'] for book in popular_books]
 
-            return render_template('index.html',
+            return render_template('fun.html',
                                    book_name=book_names,
                                    author=authors,
                                    image=images
