@@ -92,6 +92,11 @@ body {
     margin-bottom: 5px; /* Space below book name */
     color: black; /* Book name color */
 }
+.okay{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-bottom: 12px;
+}
 
 .book-author {
     font-size: 1em; /* Author name font size */
