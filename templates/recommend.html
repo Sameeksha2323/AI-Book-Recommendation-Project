@@ -7,13 +7,152 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Custom CSS - Link to your existing styles.css -->
    
-     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* Keep the not-found-message style, you can move this to styles.css if you want */
+        /* Reset and General Styles */
+body {
+    font-family: sans-serif; /* Default font */
+    margin: 0; /* Reset default body margin */
+    padding: 0; /* Reset default body padding */
+}
+.abc{
+    margin-bottom: 30px;
+}
+
+span{
+    font-weight: bold;
+    font-color: red;
+}
+
+.not-found-message{
+    text-align: center;
+}
+
+.beige-background {
+    background-color: #f5f5dc; /* Beige color */
+}
+
+/* Navbar Styles */
+.blue-navbar {
+    background-color: #ADD8E6; /* Light Blue navbar */
+    border: none; /* Remove default navbar border */
+    margin-bottom: 20px; /* Add some space below navbar */
+}
+
+.navbar-brand.logo-placeholder {
+    color: black; /* Logo text color - adjust if using image */
+    font-size: 20px; /* Adjust logo text size */
+    padding: 15px; /* Adjust padding around logo */
+}
+
+.navbar-right.black-links li a {
+    color: black !important; /* Black navbar links, !important to override Bootstrap */
+}
+
+.navbar-right.black-links li a:hover {
+    color: #333 !important; /* Darker black on hover */
+    background-color: transparent !important; /* No background on hover */
+}
+
+/* Top Books Heading */
+.top-books-heading {
+    text-align: center; /* Center align the heading */
+    font-family: 'Roboto Condensed', sans-serif; /* Roboto Condensed font */
+    font-size: 2.5em; /* Adjust heading size */
+    color: black; /* Heading text color */
+    margin-bottom: 30px; /* Space below heading */
+}
+
+/* Book Grid Layout */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    gap: 20px; /* Spacing between book cards */
+}
+
+/* Book Card Styles */
+.book-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Clip content that overflows rounded corners */
+    min-height: 350px;
+    width: 200px;
+    text-align: center;
+    background-color: white;
+}
+
+.rounded-card {
+    border-radius: 12px; /* Rounded corners for the card */
+}
+
+.golden-border {
+    border: 2px solid #FFD700; /* Golden border */
+}
+
+.book-image {
+    width: 100%; /* Image takes full width of the card */
+    height: auto; /* Maintain image aspect ratio */
+    border-top-left-radius: 12px; /* Match card rounded corners */
+    border-top-right-radius: 12px;
+    display: block; /* Prevent extra space below image */
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.book-info {
+    padding: 12px; /* Padding inside card body */
+    background-color: white; /* White background for text area */
+    border-bottom-left-radius: 12px; /* Match card rounded corners */
+    border-bottom-right-radius: 12px;
+    height: auto;
+    display: flex; /* Use flexbox inside book-info to center text vertically if needed */
+    flex-direction: column; /* Stack book name and author vertically within book-info */
+    justify-content: center; 
+}
+
+.book-name {
+    font-size: 1.2em; /* Book name font size */
+    margin-bottom: 5px; /* Space below book name */
+    color: black; /* Book name color */
+}
+.okay{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-bottom: 12px;
+}
+
+.book-author {
+    font-size: 1em; /* Author name font size */
+    color: #555; /* Author name color - slightly gray */
+    margin-bottom: 0; /* No margin below author */
+    font-weight: bold;
+}
+
+/* Responsive Adjustments (Optional - for smaller screens) */
+@media (max-width: 992px) { /* Adjust for medium screens */
+    .book-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
+    }
+}
+
+@media (max-width: 768px) { /* Adjust for small screens */
+    .book-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+    }
+}
+
+@media (max-width: 576px) { /* Adjust for extra small screens */
+    .book-grid {
+        grid-template-columns: 1fr; /* 1 column on extra small screens */
+    }
+    .top-books-heading {
+        font-size: 2em; /* Smaller heading on very small screens */
+    }
+}
         .not-found-message {
             color: black;
             text-align: center;
