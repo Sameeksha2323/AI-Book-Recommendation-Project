@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import requests
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 custom_book_images={
     " Apple Magic (The Collector's series)" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2DQpwwCxLWQh8SELbiySkiTfhfSPuI-O7fA&s",
     " Beyond IBM: Leadership Marketing and Finance for the 1990s": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2DQpwwCxLWQh8SELbiySkiTfhfSPuI-O7fA&s",
