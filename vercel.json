@@ -8,6 +8,10 @@
   ],
   "routes": [
     {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
       "src": "/",
       "dest": "app.py"
     },
@@ -16,8 +20,8 @@
       "dest": "app.py"
     },
     {
-      "src": "/recommend_books",  
-      "dest": "app.py"        
+      "src": "/recommend_books",
+      "dest": "app.py"
     }
   ]
 }
